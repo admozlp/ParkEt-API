@@ -4,6 +4,8 @@ import com.ademozalp.ParkEt.config.mapper.ModelMapperService;
 import com.ademozalp.ParkEt.dto.request.CreateParkingLotRequest;
 import com.ademozalp.ParkEt.dto.request.UpdateParkingLotRequest;
 import com.ademozalp.ParkEt.dto.response.ParkingLotDTO;
+import com.ademozalp.ParkEt.dto.response.PostalCodeDTO;
+import com.ademozalp.ParkEt.dto.response.SellerDTO;
 import com.ademozalp.ParkEt.model.ParkingLot;
 import com.ademozalp.ParkEt.model.PostalCode;
 import com.ademozalp.ParkEt.model.Seller;
@@ -52,14 +54,12 @@ public class ParkingLotServiceImpl implements ParkingLotService {
 
         ParkingLot savedParkingLot = this.parkingLotRepository.save(parkingLot);
 
-        ParkingLotDTO parkingLotDTO =
-                new ParkingLotDTO(savedParkingLot.getId(), savedParkingLot.getName(),
-                        savedParkingLot.getLatitude(), savedParkingLot.getLongitude(),
-                        savedParkingLot.getParkingFee(), savedParkingLot.getCapacity(),
-                        this.sellerService.getSellerById(seller.getId()),
-                        this.postalCodeService.getPostalCodeById(postalCode.getId()));
+        SellerDTO sellerDTO = this.sellerService.getSellerById(seller.getId());
+        PostalCodeDTO postalCodeDTO = this.postalCodeService.getPostalCodeById(postalCode.getId());
 
-        return parkingLotDTO;
+        return new ParkingLotDTO(savedParkingLot.getId(), savedParkingLot.getName(),
+                savedParkingLot.getLatitude(), savedParkingLot.getLongitude(),
+                savedParkingLot.getParkingFee(), savedParkingLot.getCapacity(), sellerDTO, postalCodeDTO);
     }
 
     @Override

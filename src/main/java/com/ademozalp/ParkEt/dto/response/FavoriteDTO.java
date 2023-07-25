@@ -19,6 +19,4 @@ public class FavoriteDTO {
     private CustomerDTO customerDTO;
 
     private ParkingLotDTO parkingLotDTO;
-
-    private SellerDTO sellerDTO;
 }

@@ -5,7 +5,6 @@ import com.ademozalp.ParkEt.dto.request.CreateFavoriteRequest;
 import com.ademozalp.ParkEt.dto.response.CustomerDTO;
 import com.ademozalp.ParkEt.dto.response.FavoriteDTO;
 import com.ademozalp.ParkEt.dto.response.ParkingLotDTO;
-import com.ademozalp.ParkEt.dto.response.SellerDTO;
 import com.ademozalp.ParkEt.model.Favorite;
 import com.ademozalp.ParkEt.repository.FavoriteRepository;
 import com.ademozalp.ParkEt.service.CustomerService;
@@ -51,13 +50,8 @@ public class FavoriteServiceImpl implements FavoriteService {
         ParkingLotDTO parkingLotDTO = this.parkingLotService
                 .getParkingLotById(createFavoriteRequest.getParkingLotId());
 
-        SellerDTO sellerDTO = parkingLotDTO.getSellerDTO();
-
-        FavoriteDTO favoriteDTO =
-                new FavoriteDTO(savedFavorite.getId(), LocalDateTime.now(),
-                        customerDTO, parkingLotDTO, sellerDTO);
-
-        return favoriteDTO;
+        return new FavoriteDTO(savedFavorite.getId(), LocalDateTime.now(),
+                customerDTO, parkingLotDTO);
 
     }
 
